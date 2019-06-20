@@ -1,4 +1,5 @@
 <?php
+//THE FOLLOWING ALL GO IN FUNCTIONS.PHP
 //Don't use the previous php tag. Use everything from here down for library module numbers.
 
 // create new column in et_pb_layout screen
@@ -31,3 +32,11 @@ return do_shortcode('[et_pb_section global_module="'.$id.'"][/et_pb_section]');
 
 //Add sitewide header to blog post
 echo do_shortcode('[et_pb_section global_module="5944"][/et_pb_section]');
+
+//Add featured image to blog post
+add_filter('the_content', 'put_thumbnail_in_posting');
+function put_thumbnail_in_posting($content) {
+global $post;
+if ( has_post_thumbnail() && ( $post->post_type == 'post' ) ) { the_post_thumbnail( '', array( 'style' => 'float:left;margin:15px;' ) ); }
+return $content;
+}
